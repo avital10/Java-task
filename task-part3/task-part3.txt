@@ -1,43 +1,64 @@
 Java Task
 חלק 3
 שאלה 1
-1GET    /books
-GET    /books/{id}
-POST   /books
-PUT    /books/{id}
+1
+GET /books
+GET /books/{id}
+POST/books
+PUT /books/{id}
 DELETE /books/{id}
 GET /books/category/{categoryId}
-2. 1GET    /books -מחזיר את כל הספרים
-GET    /books/{id} – מחזיר את הספר בעל הid
+GET /users
+GET /users/{id}
+POST /users
+PUT /users/{id}
+DELETE /users/{id}
+2
+ GET/books -מחזיר את כל הספרים
+GET /books/{id} – מחזיר את הספר בעל הid
 POST   /books – הוספת ספר חדש
 PUT    /books/{id} – עדכון פרטי ספר
 DELETE /books/{id} – מחיקת ספר 
-GET /books/category/{categoryId} – חיפוש ספר לפי קטגוריה 
-3. public class book{
+GET /books/category/{categoryId} – חיפוש ספר לפי קטגוריה
+  - GET /usersמחזיר את כל users
+GET /users/{id} -מחזיר משתמש לפי id
+POST /users- מוסיף  משתמש
+   -PUT /users/{id}מעדכן את משתמש לפי id
+  - DELETE /users/{id} מחיקת משתמש
+ 
+3.
+ public class book{
 String id
-String name
+String nameB
 Int year
-String Zaner 
 Boolean available 
 String author 
-4. String id 
-String name -חובה
+public class User {
+    private String name;    
+    private String email;  
+private List<String> borrowedBooks
+}
+4.
+ String id 
+String nameB -חובה
 Int year -חובה
-String Zaner 
 Boolean available 
 String author - חובה
+string name-חובה
+ string email -חובה
+
 
 שאלה 2
-1. 1. אילו מחלקות יש במערכת
+1.
 1.	Order –  מייצגת הזמנה (פריטים, סכום, סטטוס).
 2.	 Payment – מייצגת תשלום עבור הזמנה.
 3.	OrderService – אחראית על יצירה, שליפה וניהול סטטוס של הזמנות.
 4.	PaymentService – אחראית על ביצוע תשלומים ובדיקות תקינות.
-________________________________________
-2. אחריות של כל מחלקה
+
+2. 
+אחריות של כל מחלקה:
 Order (מחלקת הזמנה)
 שומרת את פרטי ההזמנה: מזהה, רשימת פריטים, סכום כולל וסטטוס (NEW/PAID).
-אין לה לוגיקה – רק נתונים.
 Payment (מחלקת תשלום)
 שומרת פרטי תשלום: מזהה תשלום, מזהה הזמנה (orderId), סכום, אמצעי תשלום וסטטוס התשלום.
 OrderService (טיפול בהזמנות)
@@ -46,9 +67,9 @@ PaymentService (טיפול בתשלומים)
 אחראית לבצע תשלום בפועל:
 •	לוודא שההזמנה קיימת
 •	לוודא שהסכום שנשלם תואם לסכום ההזמנה
-•	לעדכן את ההזמנה ל–PAID במקרה של תשלום תקין
+•	לעדכן את ההזמנה ל–PAID במקרה של תשלום תקין 
 ________________________________________
-3. איך מוודאים שתשלום קשור להזמנה הנכונה
+3.
 1.	קישור נתונים:
 לכל תשלום יש שדה orderId שמצביע על ההזמנה שאליה הוא שייך.
 2.	בדיקת התאמה:
