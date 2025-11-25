@@ -1,15 +1,33 @@
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 public class Main {
     public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.printf("Hello and welcome!");
+        TaskRepository repo = new TaskRepository();
+        Task t1 = new Task("1", "ללמוד Java", "לסיים את תרגיל המטלה", Status.NEW);
+        Task t2 = new Task("2", "לכתוב דוח", "לכתוב דוח שבועי", Status.IN_PROGRESS);
+        repo.Add(t1);
+        repo.Add(t2);
+        System.out.println("כל המשימות אחרי הוספה:");
+        for (Task t : repo.ListAll()) {
+            System.out.println(t);
+        }
+        t1.setStatus(Status.DONE);
+        repo.Update(t1);
+        System.out.println("\nכל המשימות אחרי עדכון:");
+        for (Task t : repo.ListAll()) {
+            System.out.println(t);
+        }
+        repo.Delete(t2);
 
-        for (int i = 1; i <= 5; i++) {
-            //TIP Press <shortcut actionId="Debug"/> to start debugging your code. We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-            // for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.
-            System.out.println("i = " + i);
+        System.out.println("\nכל המשימות אחרי מחיקה:");
+        for (Task t : repo.ListAll()) {
+            System.out.println(t);
+        }
+
+        System.out.println("\nבדיקה getById:");
+        Task check = repo.GetById("1");
+        if (check != null) {
+            System.out.println(check);
+        } else {
+            System.out.println("לא נמצאה משימה עם id 1");
         }
     }
 }
