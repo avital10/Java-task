@@ -1,33 +1,105 @@
+import java.util.Scanner;
+
 public class Main {
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
         TaskRepository repo = new TaskRepository();
-        Task t1 = new Task("1", "ללמוד Java", "לסיים את תרגיל המטלה", Status.NEW);
-        Task t2 = new Task("2", "לכתוב דוח", "לכתוב דוח שבועי", Status.IN_PROGRESS);
-        repo.Add(t1);
-        repo.Add(t2);
-        System.out.println("כל המשימות אחרי הוספה:");
-        for (Task t : repo.ListAll()) {
-            System.out.println(t);
-        }
-        t1.setStatus(Status.DONE);
-        repo.Update(t1);
-        System.out.println("\nכל המשימות אחרי עדכון:");
-        for (Task t : repo.ListAll()) {
-            System.out.println(t);
-        }
-        repo.Delete(t2);
 
-        System.out.println("\nכל המשימות אחרי מחיקה:");
-        for (Task t : repo.ListAll()) {
-            System.out.println(t);
-        }
+        while (true) {
+            System.out.println("choose task");
+            System.out.println("1. הוסף משימה");
+            System.out.println("2. עדכן משימה");
+            System.out.println("3. מחק משימה");
+            System.out.println("4. סימון כ-DONE");
+            System.out.println("5. חפש משימה לפי ID");
+            System.out.println("6. הצג כל המשימות");
+            System.out.println("0. יציאה");
+            System.out.print("בחר אופציה: ");
 
-        System.out.println("\nבדיקה getById:");
-        Task check = repo.GetById("1");
-        if (check != null) {
-            System.out.println(check);
-        } else {
-            System.out.println("לא נמצאה משימה עם id 1");
+            int choice = sc.nextInt();
+            sc.nextLine(); // סורק את ה-enter שנשאר
+
+            switch (choice) {
+                case 1:
+                    System.out.print("ID: ");
+                    String id = sc.nextLine();
+                    System.out.print("Title: ");
+                    String title = sc.nextLine();
+                    System.out.print("Description: ");
+                    String desc = sc.nextLine();
+                    Task t = new Task(id, title, desc, Status.NEW);
+                    repo.Add(t);
+                    System.out.println("משימה נוספה!");
+                    break;
+
+                case 2:
+                    System.out.print("ID של המשימה לעדכון: ");
+                    String updateId = sc.nextLine();
+                    Task toUpdate = repo.GetById(updateId);
+                    if (toUpdate != null) {
+                        System.out.print("Title חדש: ");
+                        toUpdate.setTitle(sc.nextLine());
+                        System.out.print("Description חדש: ");
+                        toUpdate.setDescription(sc.nextLine());
+                        repo.Update(toUpdate);
+                        System.out.println("משימה עודכנה!");
+                    } else {
+                        System.out.println("לא נמצאה משימה עם ID זה.");
+                    }
+                    break;
+
+                case 3:
+                    System.out.print("ID של המשימה למחיקה: ");
+                    String deleteId = sc.nextLine();
+                    Task toDelete = repo.GetById(deleteId);
+                    if (toDelete != null) {
+                        repo.Delete(toDelete);
+                        System.out.println("משימה נמחקה!");
+                    } else {
+                        System.out.println("לא נמצאה משימה עם ID זה.");
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("ID של משימה לסימון כ-DONE: ");
+                    String doneId = sc.nextLine();
+                    Task toDone = repo.GetById(doneId);
+                    if (toDone != null) {
+                        toDone.setStatus(Status.DONE);
+                        repo.Update(toDone);
+                        System.out.println("סומנה כ-DONE!");
+                    } else {
+                        System.out.println("לא נמצאה משימה עם ID זה.");
+                    }
+                    break;
+
+                case 5:
+                    System.out.print("ID לחיפוש: ");
+                    String searchId = sc.nextLine();
+                    Task found = repo.GetById(searchId);
+                    if (found != null) {
+                        System.out.println(found);
+                    } else {
+                        System.out.println("לא נמצאה משימה עם ID זה.");
+                    }
+                    break;
+
+                case 6:
+                    System.out.println("כל המשימות:");
+                    for (Task task : repo.ListAll()) {
+                        System.out.println(task);
+                    }
+                    break;
+
+                case 0:
+                    System.out.println("Exit. ביי!");
+                    sc.close();
+                    return;
+
+                default:
+                    System.out.println("בחירה לא חוקית.");
+            }
         }
     }
 }
+

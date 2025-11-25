@@ -4,10 +4,11 @@ import java.util.List;
 
 public class TaskService {
     private TaskRepository repository;
-
+// constructive action
     public TaskService(TaskRepository repository) {
         this.repository = repository;
     }
+    //changing the status of an action to done and updating
 
     public void markAsDone(String taskId) {
         Task task = repository.GetById(taskId);
@@ -16,15 +17,19 @@ public class TaskService {
             repository.Update(task);
         }
     }
-
+    //
     public List<Task> search(String text) {
         List<Task> result = new ArrayList<>();
-        for (Task t : repository.ListAll()) {
-            if (t.getTitle().toLowerCase().contains(text.toLowerCase()) ||
-                    t.getDescription().toLowerCase().contains(text.toLowerCase())) {
+        List<Task> allTasks = repository.ListAll(); //
+        text = text.toLowerCase(); //
+        for (int i = 0; i < allTasks.size(); i++) {
+            Task t = allTasks.get(i);
+            if (t.getTitle().toLowerCase().contains(text) ||
+                    t.getDescription().toLowerCase().contains(text)) {
                 result.add(t);
             }
         }
+
         return result;
     }
 
