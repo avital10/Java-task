@@ -17,7 +17,7 @@ public class TaskService {
             repository.Update(task);
         }
     }
-    //
+    // returns tasks whose title or description contains the given text
     public List<Task> search(String text) {
         List<Task> result = new ArrayList<>();
         List<Task> allTasks = repository.ListAll(); //
@@ -32,6 +32,7 @@ public class TaskService {
 
         return result;
     }
+    // returns all tasks sorted by status
 
     public List<Task> listSortedByStatus() {
         List<Task> tasks = repository.ListAll();
