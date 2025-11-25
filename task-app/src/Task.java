@@ -1,12 +1,12 @@
 public class Task {
     // Defining class variables
-    private String Id;
+    private int Id;
     private String Title;
     private String Description;
     private Status status;
 
     //  Constructor action for the Task class
-    public Task(String id, String title, String description, Status status) {
+    public Task(int id, String title, String description, Status status) {
         Id = id;
         Title = title;
         Description = description;
@@ -14,12 +14,12 @@ public class Task {
     }
 
     // Returns a unique identifier for the task.
-    public String getId() {
+    public int getId() {
         return Id;
     }
     // Update a unique task ID
 
-    public void setId(String id) {
+    public void setId(int id) {
         Id = id;
     }
 
